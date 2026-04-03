@@ -6,17 +6,18 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/componentes.css') }}">
     <link rel="shortcut icon" href="{{ url_for('static', filename='Logo/Logo.jpeg') }}" type="image/x-icon">
-    <meta name="description" content="Aquí puedes subir todo lo que desees y expresar tus ideas libremente. No existe ningún tipo de filtro en los comentarios, lo que permite una interacción más auténtica y abierta entre los usuarios.">
-    <title>NetDrop - Nombre provisional</title>
+    <title>NetDrop</title>
 </head>
 <body>
     <div class="header">
         <nav class="menu">
             <li><a href="/">INICIO</a></li>
             <li><a href="/update">SUBIR</a></li>
+            <li><a href="/qrgenerator">QR</a></li>
         </nav>
         <div class="hr_barra"></div>
     </div>
+
 
 
     <main>
@@ -24,9 +25,19 @@
         {% endblock %}
     </main>
 
-    <div class="hr_barra"></div>
-    <footer>
-        Sin Pie de pagina.
-    </footer>
+    <!-- Modal de Descarga -->
+    <div id="downloadModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeDownloadModal()">&times;</span>
+            <div id="modalBody">
+                <h2 id="modalTitle"></h2>
+                <p id="modalMessage"></p>
+                <div id="modalButtons" style="display: flex; gap: 10px; justify-content: space-between;">
+                    <button onclick="closeDownloadModal()" class="modal-btn modal-btn-secondary">Denegar</button>
+                    <button onclick="closeDownloadModal()" class="modal-btn" id="primaryBtn">Aceptar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

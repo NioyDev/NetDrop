@@ -1,11 +1,67 @@
 {% extends "layout.html" %}
 {% block content %}
-<form action="/upload" method="POST" enctype="multipart/form-data" class="UpData">
-    <label for="file" class="Up">
-        Selecciona un archivo
-        <input type="file" name="file" id="file" class="UpInput" required />
-    </label>
-    <input class="Des" type="submit" value="SUBIR" />
-</form>
+
+<div class="FormularioUP">
+    <form action="/upload" method="POST" enctype="multipart/form-data" class="UpData">
+        
+        <label for="UPFile" class="Custom-Label">
+            <div id="UPPreviewContainer">
+                <span class="UPIcon">
+                    <img src="{{ url_for('static', filename='iconos/upfile.png') }}" alt="">
+                </span> 
+            </div>
+            <span id="UPFileName">Seleccionar archivo</span>
+        </label>
+        
+        <input type="file" name="UPFile" id="UPFile" class="UpInput" required />
+        
+        <input class="Des" type="submit" value="SUBIR" />
+    </form>
+</div>
+
+<script>
+    document.getElementById('UPFile').addEventListener('change', function(event) {
+    const UPSelectedFile = event.target.files[0];
+    const UPFileNameDisplay = document.getElementById('UPFileName');
+    const UPPreviewContainer = document.getElementById('UPPreviewContainer');
+    
+    if (UPSelectedFile) {
+        // Actualizar el texto con el nombre del archivo
+        UPFileNameDisplay.textContent = UPSelectedFile.name;
+        
+        // Limpiar el contenedor para la nueva vista previa
+        UPPreviewContainer.innerHTML = '';
+        
+        const UPFileType = UPSelectedFile.type;
+
+        // Lógica de Vista Previa para IMÁGENES
+        if (UPFileType.startsWith('image/')) {
+            const UPImg = document.createElement('img');
+            UPImg.src = URL.createObjectURL(UPSelectedFile);
+            UPImg.classList.add('UPPreviewMedia');
+            UPPreviewContainer.appendChild(UPImg);
+        } 
+        // Lógica de Vista Previa para VIDEOS
+        else if (UPFileType.startsWith('video/')) {
+            const UPVideo = document.createElement('video');
+            UPVideo.src = URL.createObjectURL(UPSelectedFile);
+            UPVideo.classList.add('UPPreviewMedia');
+            UPVideo.muted = true;
+            UPVideo.play(); 
+            UPPreviewContainer.appendChild(UPVideo);
+        } 
+        // Icono genérico para otros archivos (PDF, Audio, etc.)
+        else {
+            UPPreviewContainer.innerHTML = '<span style="font-size: 50px;"><img src="{{ url_for("static", filename="iconos/file.png") }}" alt="Archivo"></span>';
+        }
+
+        // Cambio visual de borde para confirmar selección
+        document.querySelector('.Custom-Label').style.borderColor = '#000000';
+    } else {
+        UPFileNameDisplay.textContent = "Seleccionar archivo";
+    }
+});
+</script>
+
 
 {% endblock %}

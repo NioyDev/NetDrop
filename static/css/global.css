@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
     transition: all 0.3s;
+    -webkit-tap-highlight-color: transparent;
 }
 ::-webkit-scrollbar{
     width: 1px;
@@ -35,7 +36,14 @@ main{
     display: flex;
     justify-content: end;
     align-items: center;
+    z-index: 1000;
     padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .menu ul{
@@ -67,4 +75,178 @@ main{
     height: 1px;
     background-color: #000000;
     margin: 0 auto;
+}
+
+.recarga-web {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+    background-color: #ffffff;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    border: none;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.recarga-web img {
+    width: 24px;
+    height: 24px;
+    /* Quitamos la animación de aquí para que no gire al cargar la página */
+    transition: transform 0.3s ease;
+}
+
+/* Esta clase se añade con JS cuando se hace clic */
+.recarga-web.UP-activado img {
+    animation: giro 1s linear infinite; 
+}
+
+/* Tu animación corregida */
+@keyframes giro {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* Efectos de interacción */
+.recarga-web:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    transform: scale(1.1);
+}
+
+.recarga-web:active {
+    transform: scale(0.95); /* Un pequeño "hundimiento" al presionar */
+}
+
+/* ================================
+   MODAL DE DESCARGA
+   ================================ */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeInModal 0.3s ease;
+}
+
+@keyframes fadeInModal {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background-color: #ffffff;
+    margin: 10% auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    animation: slideInModal 0.3s ease;
+}
+
+@keyframes slideInModal {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 20px;
+}
+
+.modal-close:hover,
+.modal-close:focus {
+    color: #000000;
+}
+
+.modal h2 {
+    margin-bottom: 15px;
+    color: #000000;
+    font-size: 20px;
+}
+
+.modal p {
+    color: #555555;
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+.modal-btn {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    flex: 1;
+}
+
+.modal-btn:hover {
+    background-color: #333333;
+    transform: translateY(-2px);
+}
+
+.modal-btn:active {
+    transform: translateY(0);
+}
+
+.modal-btn-secondary {
+    background-color: #e0e0e0;
+    color: #000000;
+}
+
+.modal-btn-secondary:hover {
+    background-color: #d0d0d0;
+}
+
+/* Responsive para móvil */
+@media (max-width: 480px) {
+    .modal-content {
+        margin: 30% auto;
+        width: 95%;
+        padding: 20px;
+    }
+
+    .modal h2 {
+        font-size: 18px;
+    }
+
+    .modal p {
+        font-size: 14px;
+    }
+
+    .modal-btn {
+        padding: 14px 24px;
+    }
 }

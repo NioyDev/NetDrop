@@ -1,38 +1,188 @@
+
+/* ================================
+   SECCIÓN: GENERADOR QR
+   ================================ */
+
 .Generator-QR {
     width: 100%;
-    height: 70vh;
+    min-height: 80vh;
     display: flex;
     justify-content: center;
-    align-items: start;
-    gap: 20px;
-    background-color: #f5f5f5;
-    transition: background-color 0.3s ease;
+    align-items: center;
+    gap: 60px;
+    background-color: #ffffff;
+    padding: 10px 10px;
+    flex-wrap: wrap;
 }
 
-.Generator-QR img {
-    width: 100%;
-    height: 100%;
+.Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.QR-Image {
+    width: 300px;
+    height: 300px;
     object-fit: contain;
     animation: fadeIn 0.5s ease-out;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from { 
+        opacity: 0; 
+        transform: scale(0.95);
+    }
+    to { 
+        opacity: 1; 
+        transform: scale(1);
+    }
 }
 
-.Container {
-    width: 450px;
-    height: 90%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    border-radius: 10px;
-    background-color: #ffffff;
-    transition: transform 0.3s ease;
+.Text {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    color: #000000;
 }
 
-.Container:hover {
-    transform: translateY(-5px);
+.Text h3 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #000000;
+}
+
+.Instructions-List {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.Instructions-List li {
+    font-size: 15px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.Instructions-List li:before {
+    content: "•";
+    color: #000000;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.regenerate-btn {
+    padding: 14px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+}
+
+.regenerate-btn:hover {
+    background-color: #333333;
+    transform: translateY(-2px);
+}
+
+.regenerate-btn:active {
+    transform: translateY(0);
+}
+
+/* Media Query para Teléfono */
+@media (max-width: 768px) {
+    .Generator-QR {
+        min-height: auto;
+        gap: 30px;
+        padding: 20px;
+        flex-direction: column;
+    }
+
+    .Container {
+        width: 100%;
+        order: -1;
+    }
+
+    .QR-Image {
+        width: 240px;
+        height: 240px;
+    }
+
+    .Text {
+        width: 100%;
+        max-width: 100%;
+        gap: 20px;
+    }
+
+    .Text h3 {
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .Instructions-List {
+        gap: 10px;
+    }
+
+    .Instructions-List li {
+        font-size: 14px;
+    }
+
+    .regenerate-btn {
+        width: 100%;
+        padding: 16px 20px;
+        font-size: 16px;
+        min-height: 48px;
+    }
+}
+
+@media (max-width: 480px) {
+    .Generator-QR {
+        padding: 15px;
+        gap: 20px;
+    }
+
+    .QR-Image {
+        width: 200px;
+        height: 200px;
+    }
+
+    .Text {
+        gap: 15px;
+    }
+
+    .Text h3 {
+        font-size: 18px;
+    }
+
+    .Instructions-List {
+        gap: 8px;
+    }
+
+    .Instructions-List li {
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .regenerate-btn {
+        padding: 14px 16px;
+        font-size: 15px;
+        min-height: 44px;
+    }
 }
 
 .Boton_Url {
@@ -53,26 +203,13 @@
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.Boton_Url:hover {
-    background-color: #333333;
-    transform: scale(1.05);
-}
-
-.Text {
-    width: 30%;
-    height: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: start;
-    font-size: 20px;
-    font-weight: 500;
-    margin-top: 20px;
-    color: #000000;
-}
+/* ================================
+   SECCIÓN: LISTA DE ARCHIVOS
+   ================================ */
 
 .List-Files {
     width: 100%;
+    margin-top: 50px;
     height: auto;
     display: flex;
     flex-wrap: wrap;
@@ -81,6 +218,30 @@
     flex-direction: row;
     margin-bottom: 30px;
     gap: 50px;
+}
+
+.empty-state {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.empty-state h2 {
+    font-size: 28px;
+    color: #000000;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.empty-state p {
+    font-size: 16px;
+    color: #666666;
+    margin: 0;
 }
 
 .File {
@@ -101,36 +262,31 @@
     text-decoration: none;
     transition: box-shadow 0.3s ease, transform 0.3s ease;
     gap: 10px;
-    border: 1px solid #d3d3d3;
+    border: 1px solid #000000;
 }
 
-.File:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
-    transform: translateY(-10px);
-}
 
 .File picture {
     width: 90%;
     height: 70%;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
+
 
 .File audio {
-    width: 100%;    /* El audio ocupará todo el ancho del contenedor */
-    height: auto;   /* La altura se ajustará automáticamente para mantener la proporción */
-    max-width: 100%;  /* Asegurará que el audio no se desborde del contenedor */
+    width: 100%;
+    height: auto;
+    max-width: 100%;
 }
-
 
 .File video {
     width: 100%;
     height: 100%;
     display: block;
     transition: transform 0.3s ease;
-}
-
-.File:hover video {
-    transform: scale(1.05);
 }
 
 .Icono_Documento {
@@ -146,42 +302,30 @@
     max-width: 90%;
     min-width: 25%;
     font-size: medium;
-    font-family: 'Inter', sans-serif;
+    font-family: Inter;
     margin-left: 20px;
     color: #000000;
 }
 
 .File a {
-    width: 200px;
-    min-width: 100px;
-    max-width: 200px;
-    height: 20px;
+    width: 100%;
+    padding: 12px 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f5f5f5;
-    color: #000000;
-    font-size: 20px;
+    background-color: #000000;
+    color: #ffffff;
+    font-size: 16px;
     font-weight: 500;
-    border-radius: 10px;
+    border-radius: 0px;
     cursor: pointer;
-    padding: 25px;
     text-decoration: none;
-    border: 1px solid #d3d3d3;
+    border: 1px solid #000000;
     gap: 10px;
-    margin-right: 20px;
     transition: background-color 0.3s ease, transform 0.2s ease;
+    box-sizing: border-box;
 }
 
-.File a:hover {
-    background-color: #e0e0e0;
-    transform: scale(1.05);
-}
-
-.File .Des {
-    width: 15px;
-    height: 15px;
-}
 
 .File h1 {
     text-overflow: ellipsis;
@@ -196,201 +340,304 @@
     color: #666666;
 }
 
+/* ================================
+   SECCIÓN: SUBIDA DE ARCHIVOS
+   ================================ */
+
+/* Contenedor Principal */
+.FormularioUP {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    width: 60%;
+    height: 100vh;
+}
+
+/* Caja del Formulario */
 .UpData {
-    margin-top: 20vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    max-width: 600px;
-    min-width: 300px;
-    width: 100%;
-    height: 300px;
-    border-radius: 20px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    background-color: #ffffff; /* Fondo blanco */
-    transition: transform 0.3s ease;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
     padding: 30px;
-}
-
-.UpData:hover {
-    transform: translateY(-5px);
-}
-
-.Up {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #333333; /* Fondo gris oscuro */
-    color: #ffffff;
-    font-weight: 500;
-    border-radius: 5px;
-    cursor: pointer;
-    padding: 15px 30px;
-    text-decoration: none;
-    transition: background-color 0.3s ease, transform 0.2s ease;
     width: 100%;
-    margin-bottom: 15px;
-    text-align: center;
-}
-
-
-.Up:hover {
-    background-color: #555555; /* Gris más claro */
-    transform: scale(1.05);
-}
-
-.Des {
-    background-color: #000000; /* Fondo negro */
-    color: #ffffff;
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    width: 100%;
-}
-
-.Des:hover {
-    background-color: #444444; /* Gris oscuro */
-    transform: scale(1.05);
-}
-
-
-.Message {
-    width: 90%;
-    height: 80vh;
-    overflow-y: scroll;
-}
-
-.Message li {
+    max-width: 900px;
     display: flex;
     flex-direction: column;
-    max-width: 90%;
-    font-size: 30px;
-    min-width: 30px;
-    padding: 20px;
-    list-style: none;
-    background-color: #f5f5f5;
-    border-radius: 20px;
-    overflow: hidden;
-    word-wrap: break-word;
-    white-space: normal;
-    margin-top: 50px;
-    color: #000000;
-    animation: slideIn 0.5s ease-out;
+    gap: 20px;
+    transition: transform 0.3s ease;
 }
 
-@keyframes slideIn {
-    from { 
-        opacity: 0; 
-        transform: translateY(20px); 
-    }
-    to { 
-        opacity: 1; 
-        transform: translateY(0); 
-    }
-}
-
-.Sends {
+/* El "Botón" de selección de archivo (Label) */
+.Custom-Label {
     width: 100%;
+    min-height: 150px;
+    border: 2px dashed #d3d3d3;
+    border-radius: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    padding: 20px;
 }
 
-.Sends input {
-    width: 70%;
-    height: 60px;
-    border: 1px solid #d3d3d3;
-    border-radius: 5px;
-    padding: 5px;
-    transition: box-shadow 0.3s ease;
-    font-size: 30px;
+.Custom-Label:hover {
+    border-color: #000000;
+    background-color: #f9f9f9;
 }
 
-.Sends input:focus {
-    outline: none;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+.Custom-Label span {
+    font-size: 18px;
+    color: #666;
+    font-weight: 500;
 }
 
-.Sends button {
-    height: 60px;
-    width: 20%;
+/* OCULTAR EL INPUT REAL */
+.UpInput {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Botón de envío (SUBIR) */
+.Des {
     background-color: #000000;
     color: #ffffff;
     border: none;
-    border-radius: 5px;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
     cursor: pointer;
+    letter-spacing: 1px;
     transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
-.Sends button:hover {
+.Des:hover {
     background-color: #333333;
-    transform: scale(1.1);
+    transform: translateY(-2px);
 }
 
-@media screen and (max-width: 768px){
-    .Container{
-        width: 100%;
-        height: 100%;
-    }
+/* Contenedor de la vista previa */
+#UPPreviewContainer {
+    width: 50%;
+    min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
 
-    .Generator-QR{
+/* Estilo para la imagen o video de preview */
+.UPPreviewMedia {
+    max-width: 100%;
+    max-height: 180px; /* Ajusta según el alto de tu .UpData */
+    border-radius: 8px;
+    object-fit: contain;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Icono inicial */
+.UPIcon {
+    font-size: 40px;
+    color: #ccc;
+}
+
+/* Animación de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* El input real sigue oculto pero accesible */
+.UpInput {
+    display: none;
+}
+
+/* ================================
+   SECCIÓN: RESPONSIVE
+   ================================ */
+
+/* Tablets y pantallas medianas (768px y menores) */
+@media (max-width: 768px) {
+    /* Generador QR Responsive */
+    .Generator-QR {
+        gap: 30px;
         flex-direction: column;
-        width: 100%;
-        height: 100%;
-        justify-content: center;
-        align-items: center;
-        margin-bottom: 40px;
+        min-height: auto;
+        padding: 20px;
+        margin-top: 50px;
     }
 
-    .Text{
-        width: 100%;
+    .QR-Image {
+        width: 240px;
+        height: 240px;
     }
 
-    .Boton_Url{
-        width: 50%;
-    }   
-    
-    .List-Files{
+    .Text {
         width: 100%;
-        height: auto;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
+        max-width: 100%;
+        gap: 20px;
     }
 
+    .Text h3 {
+        font-size: 20px;
+    }
+
+    .Instructions-List {
+        gap: 10px;
+    }
+
+    .Instructions-List li {
+        font-size: 14px;
+    }
+
+    .regenerate-btn {
+        width: 100%;
+        min-height: 44px;
+    }
+
+    /* Otros elementos */
     .File{
         width: 90%;
-        height: 500px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 5px;
     }
 
-    .File picture{
+    .FormularioUP {
         width: 90%;
-        height: 80%;
     }
 
-    .File a{
-        font-size: small;
+    .UpData {
+        width: 100%;
     }
 
-    .UpData{
-        width: 90%;
-        height: 300px;
-        flex-direction: column;
+    .Custom-Label {
+        min-height: 100px;
     }
-    .UpData input{
-        font-size: 10px;
-        
+
+    #UPPreviewContainer {
+        min-height: 150px;
+    }
+
+    /* Empty State Responsive */
+    .empty-state {
+        padding: 40px 20px;
+        margin-top: 30px;
+    }
+
+    .empty-state h2 {
+        font-size: 24px;
+    }
+
+    .empty-state p {
+        font-size: 14px;
     }
 }
 
+/* Teléfonos y pantallas pequeñas (480px y menores) */
+@media (max-width: 480px) {
+    /* Generador QR */
+    .Generator-QR {
+        gap: 25px;
+        padding: 15px;
+        min-height: auto;
+    }
 
+    .QR-Image {
+        width: 200px;
+        height: 200px;
+    }
+
+    .Text {
+        width: 100%;
+        gap: 15px;
+    }
+
+    .Text h3 {
+        font-size: 16px;
+    }
+
+    .Instructions-List {
+        gap: 8px;
+    }
+
+    .Instructions-List li {
+        font-size: 13px;
+    }
+
+    .regenerate-btn {
+        width: 100%;
+        min-height: 48px;
+        font-size: 14px;
+        padding: 12px;
+    }
+
+    /* Archivos */
+    .File {
+        width: 95%;
+        height: 400px;
+    }
+
+    .File h1 {
+        font-size: 16px;
+    }
+
+    .File a {
+        width: 100%;
+        padding: 12px 15px;
+    }
+
+    /* Formulario de subida */
+    .FormularioUP {
+        width: 100%;
+        padding: 15px;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .UpData {
+        padding: 20px;
+        gap: 15px;
+    }
+
+    .Custom-Label {
+        min-height: 120px;
+        padding: 15px;
+    }
+
+    .Custom-Label span {
+        font-size: 14px;
+    }
+
+    #UPPreviewContainer {
+        width: 100%;
+        min-height: 150px;
+    }
+
+    .Des {
+        width: 100%;
+        padding: 15px;
+        font-size: 14px;
+    }
+
+    /* Empty State Responsive Mobile */
+    .empty-state {
+        padding: 40px 15px;
+        margin-top: 30px;
+    }
+
+    .empty-state h2 {
+        font-size: 20px;
+    }
+
+    .empty-state p {
+        font-size: 13px;
+    }
+}
