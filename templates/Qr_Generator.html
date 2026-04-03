@@ -2,7 +2,7 @@
 {% block content %}
     <div class="Generator-QR">
         <div class="Container">
-            <img src="{{ url_for('static', filename='QR/Qr.png')}}" alt="Código QR" class="QR-Image">
+            <img src="{{ url_for('qr_image') }}" alt="Código QR" class="QR-Image">
         </div>
 
         <div class="Text">
@@ -17,5 +17,4 @@
             <a class="regenerate-btn" href="/qr">Generar Nuevo QR</a>
         </div>
     </div>
-
 {% endblock %}
