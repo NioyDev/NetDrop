@@ -85,18 +85,17 @@ Si quieres acceder desde otro dispositivo de la misma red, usa la IP local de la
 
 ## Licencia y uso
 
-Este proyecto no se publica como open source en el sentido estricto de la OSI. Se distribuye como software source-available bajo la licencia **PolyForm Noncommercial 1.0.0**.
+Este proyecto se distribuye como software source-available bajo la licencia **PolyForm Noncommercial 1.0.0**.
 
-Esto significa que puedes usar, estudiar y modificar el codigo para fines no comerciales, pero no esta permitido redistribuirlo o explotarlo con fines monetarios sin permiso expreso de los autores.
+Esto significa que puedes usar, estudiar y modificar el codigo para fines no comerciales, pero no esta permitido redistribuirlo o explotarlo con fines monetarios sin permiso expreso del autor.
 
 El software se proporciona "tal como esta", sin garantia de ningun tipo.
 
-Consulta el archivo [`LICENSE`](./LICENSE) para leer el texto completo de la licencia.
+Consulta el archivo [`LICENSE`](./LICENSE) para leer la version en espanol de la licencia.
 
-## Autores
+## Autor
 
 - [Nioy](https://github.com/NioyJadelkaFp/)
-- [Ezxquiel](https://github.com/Ezxquiel)
 
 ## Tecnologias
 
