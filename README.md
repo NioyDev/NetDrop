@@ -1,103 +1,84 @@
 # NetDrop
 
-NetDrop es una aplicacion web local para compartir archivos dentro de una misma red. Permite iniciar un pequeno servidor desde tu computadora para subir, visualizar, descargar y eliminar archivos desde otros dispositivos conectados a la red, como Android, iPhone, tablets o cualquier navegador moderno.
+NetDrop es una aplicacion web local para compartir archivos dentro de la misma red. Puedes ejecutarla en tu computadora y acceder desde otro dispositivo usando el navegador.
 
-Tambien incluye un generador de QR para facilitar el acceso rapido a la interfaz desde el movil.
+Con NetDrop puedes:
 
-## Caracteristicas
-
-- Servidor local con interfaz web.
-- Subida y descarga de archivos.
-- Eliminacion de archivos desde la interfaz.
-- Generacion de codigo QR para abrir la web mas rapido.
-- Compatible con varios tipos de archivo.
-- Se abre automaticamente en el navegador al iniciar.
+- subir archivos desde el navegador;
+- ver y descargar archivos compartidos;
+- eliminar archivos desde la interfaz;
+- generar un codigo QR para abrir la pagina mas rapido desde el celular.
 
 ## Requisitos
 
-### Software
-
 - Python 3.11 o superior.
 - `pip` para instalar dependencias.
-
-### Librerias incluidas en `requirements.txt`
-
-- `Flask==3.1.0`
-- `Werkzeug==3.1.3`
-- `qrcode==8.0`
-- `Flask-SocketIO==5.5.1`
+- Una red local compartida si quieres acceder desde otro dispositivo.
 
 ## Instalacion
 
-Clona el repositorio:
-
-```bash
-git clone https://github.com/NioyJadelkaFp/NetDrop.git
-```
-
-Entra en la carpeta del proyecto:
-
-```bash
-cd NetDrop
-```
-
-Instala las dependencias:
+1. Clona o descarga el repositorio.
+2. Abre una terminal dentro de la carpeta del proyecto.
+3. Instala las dependencias:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Ejecutar la aplicacion
+## Ejecutar desde el codigo fuente
 
-### En Windows
+En Windows:
 
 ```bash
 python app.py
 ```
 
-### En Linux o macOS
+En Linux o macOS:
 
 ```bash
 python3 app.py
 ```
 
-Cuando el servidor arranque, NetDrop abrira automaticamente el navegador y escuchara en:
+Al iniciar, NetDrop:
 
-```bash
-http://0.0.0.0:5000
-```
+- abre el navegador automaticamente;
+- levanta un servidor local en `http://0.0.0.0:5000`;
+- genera el QR de acceso en la carpeta de datos de la aplicacion.
 
-Si quieres acceder desde otro dispositivo de la misma red, usa la IP local de la computadora que ejecuta el servidor.
-
-## Uso
+## Uso rapido
 
 1. Ejecuta la aplicacion.
-2. Abre la interfaz web desde tu navegador.
+2. Abre la interfaz en el navegador.
 3. Sube los archivos que quieras compartir.
-4. Accede desde otro dispositivo usando la misma red Wi-Fi o cableada.
-5. Descarga, visualiza o elimina los archivos desde la interfaz.
+4. Desde otro dispositivo, entra usando la IP local de la computadora anfitriona y el puerto `5000`.
+5. Descarga, visualiza o elimina archivos desde la web.
 
-## Nota de seguridad
+## Carpetas de trabajo
 
-- NetDrop esta pensado para uso en red local.
-- Si el acceso desde otro dispositivo no funciona, revisa el firewall de tu sistema y permite el puerto `5000`.
+NetDrop guarda sus archivos en el perfil del usuario, no dentro del proyecto:
+
+- Subidas: `%LOCALAPPDATA%\NetDrop\File`
+- QR: `%LOCALAPPDATA%\NetDrop\QR`
+
+Si ejecutas desde otras plataformas, estas carpetas se crean en el directorio de usuario correspondiente.
+
+## Notas
+
+- La aplicacion esta pensada para red local.
+- Si no puedes entrar desde otro equipo, revisa el firewall y permite el puerto `5000`.
 - La funcion de desbloqueo de archivos solo funciona en Windows.
+- El acceso directo al archivo usa nombres sanitizados por seguridad.
 
-## Licencia y uso
+## Tecnologias
 
-Este proyecto se distribuye como software source-available bajo la licencia **PolyForm Noncommercial 1.0.0**.
-
-Esto significa que puedes usar, estudiar y modificar el codigo para fines no comerciales, pero no esta permitido redistribuirlo o explotarlo con fines monetarios sin permiso expreso del autor.
-
-El software se proporciona "tal como esta", sin garantia de ningun tipo.
-
-Consulta el archivo [`LICENSE`](./LICENSE) para leer la version en espanol de la licencia.
+- Backend: Python, Flask
+- Frontend: HTML, CSS, JavaScript, Jinja2
+- QR: `qrcode`, `Pillow`
 
 ## Autor
 
 - [Nioy](https://github.com/NioyJadelkaFp/)
 
-## Tecnologias
+## Licencia
 
-- **Frontend:** HTML, CSS, JavaScript, Jinja2
-- **Backend:** Python, Flask
+Este proyecto se distribuye como software source-available bajo la licencia **PolyForm Noncommercial 1.0.0**.

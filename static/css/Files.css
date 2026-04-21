@@ -1,0 +1,145 @@
+:root {
+    --file-bg: #f0f0f0;
+    --file-surface: #ffffff;
+    --file-surface-muted: #c7c7c7;
+    --file-text: #333333;
+    --file-text-muted: #666666;
+    --file-border-radius: 10px;
+    --file-radius-sm: 5px;
+    --file-shadow-soft: 0 2px 5px rgba(0, 0, 0, 0.1);
+    --file-shadow-strong: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --file-gap: 20px;
+    --file-padding: 20px;
+    --file-padding-sm: 10px;
+    --file-button-width: 135px;
+    --file-delete-bg: #e74c3c;
+    --file-download-bg: #28a745;
+    --file-link-text: #ffffff;
+    --file-font-family: 'Inter', sans-serif;
+    --file-transition: 0.3s ease;
+    --file-image-transition: 0.5s ease;
+}
+
+.File-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--file-gap);
+    padding: var(--file-padding);
+    margin-top: var(--file-gap);
+    width: 100%;
+    min-height: 100vh;
+}
+
+.File-item {
+    width: 425px;
+    height: 400px;
+    background-color: var(--file-bg);
+    border-radius: var(--file-border-radius);
+    box-shadow: var(--file-shadow-soft);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.File-item picture {
+    width: 100%;
+    height: 62%;
+    border-top-left-radius: var(--file-border-radius);
+    border-top-right-radius: var(--file-border-radius);
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--file-surface-muted);
+    padding: 8px;
+}
+
+.File-item picture > img,
+.File-item picture > video,
+.File-item picture > embed {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    border-radius: var(--file-border-radius) var(--file-border-radius) 0 0;
+    transition: transform var(--file-image-transition);
+    transform-origin: center center;
+}
+
+.File-item picture > video {
+    background-color: #000000;
+}
+
+.File-item picture > embed {
+    background-color: var(--file-surface);
+}
+
+.File-item .Titulo {
+    padding: var(--file-padding-sm);
+    text-align: left;
+    font-size: 18px;
+    font-weight: 900;
+    font-family: var(--file-font-family);
+    color: var(--file-text);
+}
+
+.File-item .Fecha {
+    padding: var(--file-padding-sm);
+    text-align: left;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: var(--file-font-family);
+    color: var(--file-text-muted);
+}
+
+.File-item .Acciones {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: var(--file-padding-sm);
+    gap: 10px;
+}
+
+.File-item .Acciones a {
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: var(--file-radius-sm);
+    transition: background-color var(--file-transition), transform var(--file-transition);
+    width: var(--file-button-width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--file-link-text);
+    font-weight: 600;
+    font-family: var(--file-font-family);
+    gap: 8px;
+}
+
+.File-item .Acciones a:hover {
+    transform: translateY(-1px);
+}
+
+.File-item a:active,
+.File-item a:focus {
+    text-decoration: none;
+}
+
+.File-item .delete-link {
+    background-color: var(--file-delete-bg);
+    color: var(--file-link-text);
+}
+
+.File-item .download-link {
+    background-color: var(--file-download-bg);
+    color: var(--file-link-text);
+}
+
+.File-item a img {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    border-radius: 0;
+    transition: transform var(--file-image-transition);
+    transform-origin: center center;
+}

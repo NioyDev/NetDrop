@@ -16,7 +16,8 @@ def Show_File():
                 archivos.append({
                     "nombre": nombre_archivo,
                     "ruta": f"/file/{nombre_archivo}",
-                    "tipo": nombre_archivo.split(".")[-1].lower() if '.' in nombre_archivo else ''
+                    "tipo": nombre_archivo.split(".")[-1].lower() if '.' in nombre_archivo else '',
+                    "fecha": os.path.getmtime(ruta_completa)
                 })
 
     return archivos
