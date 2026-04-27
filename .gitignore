@@ -36,7 +36,7 @@ Pipfile.lock
 *.envrc
 .env
 
-
+.gitignore
 Qr/
 build_exe.py
 NetDrop_Installer.nsi
