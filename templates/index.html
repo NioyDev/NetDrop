@@ -23,17 +23,17 @@
           class="zip"
           /* Asegúrate de tener una imagen de un zip/carpeta en tu carpeta
               estática */
-          src="{{ url_for('static', filename='iconos/zip.png') }}"
+          src="{{ url_for('static', filename='iconos/zip.svg') }}"
           alt="Archivo comprimido"
         />
         {% elif file_item.tipo in ["aac", "wav", "mp3", "m4a", "opus"] %}
         <img
-          src="{{ url_for('static', filename='iconos/sound.png') }}"
+          src="{{ url_for('static', filename='iconos/sound.svg') }}"
           alt="Sonido"
         />
         {% elif file_item.tipo in ["py", "js", "html", "css", "txt", "java", "jav", "exe"] %}
         <img
-          src="{{ url_for('static', filename='iconos/exe.png') }}"
+          src="{{ url_for('static', filename='iconos/exe.svg') }}"
           alt="Código"
         />
         {% endif %}
@@ -46,10 +46,10 @@
     </div>
     <div class="Acciones">
       <a href="#" class="delete-link" title="Eliminar archivo" onclick="openDeleteModal('{{ file_item.nombre }}'); return false;">
-        <img src="{{ url_for('static', filename='iconos/trash.png') }}" alt="Eliminar">
+        <img src="{{ url_for('static', filename='iconos/trash.svg') }}" alt="Eliminar">
       </a>
       <a href="#" class="download-link" onclick="downloadFile(event, '{{ file_item.nombre }}')">
-        <img src="{{ url_for('static', filename='iconos/download.png') }}" alt="Descargar">
+        <img src="{{ url_for('static', filename='iconos/descarga.svg') }}" alt="Descargar">
       </a>
 
     </div>

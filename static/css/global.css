@@ -68,6 +68,10 @@ main{
     font-size: 20px;
     animation: aparecer;
     animation-timeline: view(60% auto);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
 }
 
 .hr_barra{

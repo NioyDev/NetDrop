@@ -7,7 +7,7 @@
         <label for="UPFile" class="Custom-Label">
             <div id="UPPreviewContainer">
                 <span class="UPIcon">
-                    <img src="{{ url_for('static', filename='iconos/upfile.png') }}" alt="">
+                    <img src="{{ url_for('static', filename='iconos/file.svg') }}" alt="">
                 </span> 
             </div>
             <span id="UPFileName">Seleccionar archivo</span>
@@ -52,7 +52,7 @@
         } 
         // Icono genérico para otros archivos (PDF, Audio, etc.)
         else {
-            UPPreviewContainer.innerHTML = '<span style="font-size: 50px;"><img src="{{ url_for("static", filename="iconos/file.png") }}" alt="Archivo"></span>';
+            UPPreviewContainer.innerHTML = '<span style="font-size: 50px;"><img src="{{ url_for("static", filename="iconos/file.svg") }}" alt="Archivo"></span>';
         }
 
         // Cambio visual de borde para confirmar selección

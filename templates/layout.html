@@ -13,9 +13,15 @@
 <body>
     <div class="header">
         <nav class="menu">
-            <li><a href="/">INICIO</a></li>
-            <li><a href="/update">SUBIR</a></li>
-            <li><a href="/qrgenerator">QR</a></li>
+            <li><a href="/">
+                <img src="{{ url_for('static', filename='iconos/home.svg') }}" alt="Logo">
+                INICIO</a></li>
+            <li><a href="/update">
+                <img src="{{ url_for('static', filename='iconos/upload.svg') }}" alt="Subir">
+                SUBIR</a></li>
+            <li><a href="/qrgenerator">
+                <img src="{{ url_for('static', filename='iconos/qr.svg') }}" alt="QR">
+                QR</a></li>
         </nav>
         <div class="hr_barra"></div>
     </div>

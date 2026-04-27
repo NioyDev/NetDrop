@@ -10,7 +10,6 @@ import secrets
 import subprocess
 import platform
 import sys
-from flask_socketio import SocketIO
 
 
 # Crear carpetas persistentes para archivos subidos y QR
@@ -26,7 +25,6 @@ MAX_FILE_SIZE = 500 * 1024 * 1024  # 500MB
 app = Flask(__name__, template_folder=templates_dir(), static_folder=static_dir())
 app.config['SECRET_KEY'] = secrets.token_hex(32)
 app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
-socketio = SocketIO(app, cors_allowed_origins="*", async_mode="threading")
 SYNC_STATE = {"version": 0}
 
 
@@ -200,18 +198,6 @@ def update():
         if not allowed_file(filename):
             return redirect('/update')
 
-        try:
-            os.makedirs(Files_Carpet, exist_ok=True)
-            f.save(os.path.join(Files_Carpet, filename))
-            SYNC_STATE["version"] += 1
-            socketio.emit('files_updated', {
-                'filename': filename,
-                'path': f'/file/{filename}',
-                'version': SYNC_STATE["version"],
-            }, broadcast=True, namespace='/')
-        except Exception as e:
-            print(f"Error al guardar archivo: {e}")
-            return redirect('/update')
 
     return redirect('/update')
 
@@ -230,4 +216,4 @@ def abrir_navegador():
 if __name__ == '__main__':
     Qr_Generator.Generar_QR()
     abrir_navegador()
-    socketio.run(app, debug=True, host="0.0.0.0", port=5000)
+    app.run( debug=True, host="0.0.0.0", port=5000)
