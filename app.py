@@ -230,4 +230,4 @@ def abrir_navegador():
 if __name__ == '__main__':
     Qr_Generator.Generar_QR()
     abrir_navegador()
-    socketio.run(app, debug=False, host="0.0.0.0", port=5000, allow_unsafe_werkzeug=True)
+    socketio.run(app, debug=True, host="0.0.0.0", port=5000)

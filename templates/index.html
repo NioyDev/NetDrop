@@ -4,74 +4,60 @@
   <img src="{{ url_for('static', filename='iconos/Cached.png') }}" alt="Icono Recargar">
 </button>
 
-<section class="File-container">
-  {% for file_item in File %}
-  <div class="File-item">
-    <button
-      class="delete-file-btn"
-      type="button"
-      title="Eliminar archivo"
-      aria-label="Eliminar {{ file_item.nombre }}"
-      onclick="openDeleteModal('{{ file_item.nombre }}')"
-    >
-      <img src="{{ url_for('static', filename='iconos/trash.png') }}" alt="Eliminar">
-    </button>
+<section class="File-Contenedor">
+ {% for file_item in File %}
+  <div class="File_items">
+    <picture class="File_Contenido">
+        {% if file_item.tipo in ["jpg", "jpeg", "png", "gif"] %}
+        <img
+          class="Icono_Documento"
+          src="{{ file_item.ruta }}"
+          alt="{{ file_item.nombre }}"
+        />
+        {% elif file_item.tipo == "mp4" %}
+        <video class="video-js">
+          <source src="{{ file_item.ruta }}" type="video/mp4" />
+        </video>
+        {% elif file_item.tipo in ["rar", "zip"] %}
+        <img
+          class="zip"
+          /* Asegúrate de tener una imagen de un zip/carpeta en tu carpeta
+              estática */
+          src="{{ url_for('static', filename='iconos/zip.png') }}"
+          alt="Archivo comprimido"
+        />
+        {% elif file_item.tipo in ["aac", "wav", "mp3", "m4a", "opus"] %}
+        <img
+          src="{{ url_for('static', filename='iconos/sound.png') }}"
+          alt="Sonido"
+        />
+        {% elif file_item.tipo in ["py", "js", "html", "css", "txt", "java", "jav", "exe"] %}
+        <img
+          src="{{ url_for('static', filename='iconos/exe.png') }}"
+          alt="Código"
+        />
+        {% endif %}
+    </picture>
 
-    {% if file_item.tipo in ["jpg", "jpeg", "png", "gif"] %}
-    <picture>
-      <img
-        class="Icono_Documento"
-        src="{{ file_item.ruta }}"
-        alt="{{ file_item.nombre }}"
-      />
-    </picture>
-    {% elif file_item.tipo == "mp4" %}
-    <picture>
-      <video class="video-js" controls>
-        <source src="{{ file_item.ruta }}" type="video/mp4" />
-      </video>
-    </picture>
-    {% elif file_item.tipo in ["pdf", "rar", "zip"] %}
-    <picture>
-      <embed
-        class="Icono_Documento"
-        src="{{ file_item.ruta }}"
-        type="application/pdf"
-      />
-    </picture>
-    {% elif file_item.tipo in ["aac", "wav", "mp3", "m4a", "opus"] %}
-    <picture>
-      <img
-        src="{{ url_for('static', filename='iconos/sound.png') }}"
-        alt="Sonido"
-      />
-    </picture>
-    {% elif file_item.tipo in ["py", "js", "html", "css", "txt", "java", "jav", "exe"] %}
-    <picture>
-      <img
-        src="{{ url_for('static', filename='iconos/exe.png') }}"
-        alt="Código"
-      />
-    </picture>
-    {% endif %}
-
-    <span class="Titulo">{{ file_item.nombre }}</span>
-    <span class="Fecha">Tipo: {{ file_item.tipo|upper if file_item.tipo else "SIN TIPO" }}</span>
-
+    <div class="File_Detalles">
+      <span class="Titulo">{{ file_item.nombre.rsplit('.', 1)[0] }}</span>
+      <span class="Tipo">Tipo: {{ file_item.tipo|upper if file_item.tipo else "SIN TIPO" }}</span>
+      <span class="Fecha">Fecha: {{ file_item.fecha }}</span>
+    </div>
     <div class="Acciones">
       <a href="#" class="delete-link" title="Eliminar archivo" onclick="openDeleteModal('{{ file_item.nombre }}'); return false;">
-        Eliminar
         <img src="{{ url_for('static', filename='iconos/trash.png') }}" alt="Eliminar">
       </a>
       <a href="#" class="download-link" onclick="downloadFile(event, '{{ file_item.nombre }}')">
-        Descargar
         <img src="{{ url_for('static', filename='iconos/download.png') }}" alt="Descargar">
       </a>
+
     </div>
   </div>
   {% endfor %}
+</section>
 
-  {% if not File %}
+{% if not File %}
   <div class="empty-state" style="width: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 60px 20px; text-align: center; margin-top: 50px;">
     <h2 style="font-size: 28px; color: #000000; margin-bottom: 10px; font-weight: 600;">No hay archivos aun</h2>
     <p style="font-size: 16px; color: #666666; margin: 0;">Sube tu primer archivo para comenzar</p>

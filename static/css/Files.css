@@ -20,126 +20,163 @@
     --file-image-transition: 0.5s ease;
 }
 
-.File-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--file-gap);
-    padding: var(--file-padding);
-    margin-top: var(--file-gap);
-    width: 100%;
+/*
+    File Nuevos
+*/
+
+.File-Contenedor{
+    width: 95%;
     min-height: 100vh;
+    margin-top: 40px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
 }
 
-.File-item {
-    width: 425px;
-    height: 400px;
-    background-color: var(--file-bg);
-    border-radius: var(--file-border-radius);
-    box-shadow: var(--file-shadow-soft);
+.File_items{
+    width: 95%;
+    height: 140px;
+    margin: 15px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 10px;
+    border: #666666 1px solid;
+}
+
+.File_Detalles{
+    width: 40%;
+    height: 90%;
+    margin: 20px;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
+    justify-content: flex-start;
+
 }
 
-.File-item picture {
-    width: 100%;
-    height: 62%;
-    border-top-left-radius: var(--file-border-radius);
-    border-top-right-radius: var(--file-border-radius);
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: var(--file-surface-muted);
-    padding: 8px;
-}
-
-.File-item picture > img,
-.File-item picture > video,
-.File-item picture > embed {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-    border-radius: var(--file-border-radius) var(--file-border-radius) 0 0;
-    transition: transform var(--file-image-transition);
-    transform-origin: center center;
-}
-
-.File-item picture > video {
-    background-color: #000000;
-}
-
-.File-item picture > embed {
-    background-color: var(--file-surface);
-}
-
-.File-item .Titulo {
-    padding: var(--file-padding-sm);
-    text-align: left;
-    font-size: 18px;
+.File_Detalles .Titulo{
+    font-size: 38px;
     font-weight: 900;
-    font-family: var(--file-font-family);
-    color: var(--file-text);
+    display: block; 
+    width: 100%; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
 }
 
-.File-item .Fecha {
-    padding: var(--file-padding-sm);
-    text-align: left;
+
+.File_Contenido{
+    width: 15%;
+    height: 80%;
+    margin: 15px;
+    overflow: hidden;
+    border-radius: 5px;
+    border: #333333 1px solid;
+}
+
+.File_Detalles .Tipo, .Fecha{
     font-size: 14px;
-    font-weight: 500;
-    font-family: var(--file-font-family);
     color: var(--file-text-muted);
 }
 
-.File-item .Acciones {
+.File_Contenido img{
     width: 100%;
-    display: flex;
-    justify-content: space-around;
-    padding: var(--file-padding-sm);
-    gap: 10px;
+    height: 100%;
+    object-fit: cover;
 }
 
-.File-item .Acciones a {
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: var(--file-radius-sm);
-    transition: background-color var(--file-transition), transform var(--file-transition);
-    width: var(--file-button-width);
+.File_Contenido video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.File_Contenido embed{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.Acciones{
+    width: 50%;
+    height: 80%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    border-radius: 5px;
+    margin: 10px;
+    gap: 5px;
+}
+
+.Acciones a{
+    border: #666666 1px solid;
+    margin: 5px 0 5px 0px;
+    border-radius: 5px;
+    width: 110px;
+    height: 110px;
     display: flex;
     justify-content: center;
     align-items: center;
-    color: var(--file-link-text);
-    font-weight: 600;
-    font-family: var(--file-font-family);
-    gap: 8px;
 }
 
-.File-item .Acciones a:hover {
-    transform: translateY(-1px);
-}
-
-.File-item a:active,
-.File-item a:focus {
-    text-decoration: none;
-}
-
-.File-item .delete-link {
-    background-color: var(--file-delete-bg);
-    color: var(--file-link-text);
-}
-
-.File-item .download-link {
-    background-color: var(--file-download-bg);
-    color: var(--file-link-text);
-}
-
-.File-item a img {
-    width: 26px;
-    height: 26px;
+.File_Contenido .zip{
+    width: 100%;
+    height: 100%;
     object-fit: contain;
-    border-radius: 0;
-    transition: transform var(--file-image-transition);
-    transform-origin: center center;
+    scale: 0.5;
+
+}
+
+@media (max-width: 480px) {
+    .File_items {
+        height: 60px; /* Una altura cómoda para el dedo */
+        margin: 10px 5px; /* Menos margen lateral en móvil */
+        padding: 5px;
+        /* Al no cambiar el flex-direction, se mantiene como FILA (lista) */
+    }
+
+    .File_Contenido {
+        width: 50px;
+        height: 50px;
+        margin: 0 15px 0 0; 
+        flex-shrink: 0; /
+    }
+
+    .File_Detalles {
+        /* Los detalles toman el espacio central sobrante */
+        width: 30%;
+        flex: 1; /* Esto hace que se expanda para llenar el centro */
+        margin: 0;
+        height: auto;
+        justify-content: center;
+    }
+
+
+    .File_Detalles .Tipo, .Fecha{
+    font-size: 8px;
+    color: var(--file-text-muted);
+}
+
+    .File_Detalles .Titulo {
+        /* Bajamos el tamaño de fuente drásticamente para móvil */
+        font-size: 18px; 
+    }
+
+    .Acciones {
+        width: 40%;
+        height: 50px;
+        justify-content: flex-end;
+    }
+
+    .Acciones a {
+        padding: 0px;
+        width: 50px;
+        height: 50px;
+    }
+    .Acciones a > img {
+        width: 50%;
+        height: 50%;
+        object-fit: contain;
+    }
 }
