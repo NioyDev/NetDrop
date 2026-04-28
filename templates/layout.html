@@ -11,21 +11,22 @@
     <title>NetDrop</title>
 </head>
 <body>
-    <div class="header">
-        <nav class="menu">
-            <li><a href="/">
-                <img src="{{ url_for('static', filename='iconos/home.svg') }}" alt="Logo">
-                INICIO</a></li>
-            <li><a href="/update">
-                <img src="{{ url_for('static', filename='iconos/upload.svg') }}" alt="Subir">
-                SUBIR</a></li>
-            <li><a href="/qrgenerator">
-                <img src="{{ url_for('static', filename='iconos/qr.svg') }}" alt="QR">
-                QR</a></li>
-        </nav>
-        <div class="hr_barra"></div>
-    </div>
 
+
+    <nav role="navigation">
+  <div id="menuToggle">
+    <input type="checkbox" />
+    <span></span>
+    <span></span>
+    <span></span>
+    <ul id="menu">
+      
+      <a href="/"><li>Inicio</li></a>
+      <a href="/update"><li>Subir</li></a>
+      <a href="/qrgenerator"><li>Qr</li></a>
+    </ul>
+  </div>
+</nav>
 
 
     <main>

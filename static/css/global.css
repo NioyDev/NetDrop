@@ -13,7 +13,12 @@
     navigation: auto;
 }
 
+body{
+    background-color: #f0ede5;
+}
+
 main{
+    margin-top: 85px;
     width: 100%;
     min-height: 80vh;
     display: flex;
@@ -22,56 +27,135 @@ main{
     flex-direction: column;
 }
 
-.header{
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    margin-bottom: 30px;
+
+#menuToggle
+{
+  display: block;
+  position: fixed;
+  top: 50px;
+  z-index: 1;
+  -webkit-user-select: none;
+  user-select: none;
+  height: 70px;
+
 }
 
-.menu{
-    width: 100%;
-    height: 50px;
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    z-index: 1000;
-    padding: 0 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: 7px;
+  left: 95vw;
+  cursor: pointer;
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  -webkit-touch-callout: none;
 }
 
-.menu ul{
-    display: flex;
-    justify-content: end;
-    width: 50%;
-    list-style: none;
+/*
+ * hamburger
+ */
+#menuToggle span
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  left: 95vw;
+  background: #000000;
+  border-radius: 3px;
+  
+  z-index: 1;
+  
+  transform-origin: 4px 0px;
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              background 0.5s cubic-bezier(0.77,0.2,0.05,1.0),
+              opacity 0.55s ease;
 }
 
-.menu li{
-    display: inline;
-    list-style: none;
-    margin: 10px;
+#menuToggle span:first-child
+{
+  transform-origin: 0% 0%;
 }
 
-.menu a{
-    width: 100%;
-    height: 100%;
+#menuToggle span:nth-last-child(2)
+{
+  transform-origin: 0% 100%;
+}
+
+/* 
+ * Transform all the slices of hamburger
+ * into a crossmark.
+ */
+#menuToggle input:checked ~ span
+{
+  opacity: 1;
+  transform: rotate(45deg) translate(-2px, -1px);
+  background: #232323;
+}
+
+/*
+ * hide the middle one
+ */
+#menuToggle input:checked ~ span:nth-last-child(3)
+{
+  opacity: 0;
+  transform: rotate(0deg) scale(0.2, 0.2);
+}
+
+/*
+ * last one should go the other direction
+ */
+#menuToggle input:checked ~ span:nth-last-child(2)
+{
+  transform: rotate(-45deg) translate(0, -1px);
+}
+
+#menu
+{
+  position: absolute;
+  width: 100vw;
+  height: 120vh;
+  margin: -100px 0 0 0px;
+  padding: 50px;
+  padding-top: 125px;
+  text-align:center;
+  
+  background: #f0ede5;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+  
+  transform-origin: 0% 0%;
+  transform: translate(0, -100%);
+  
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+}
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 22px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+}
+
+#menu a{
     color: #000000;
     text-decoration: none;
-    margin: 0 10px;
-    font-size: 20px;
-    animation: aparecer;
-    animation-timeline: view(60% auto);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
+    font-weight: 600;
+}
+
+/*
+ * slide it in
+ */
+#menuToggle input:checked ~ ul
+{
+  transform: none;
 }
 
 .hr_barra{
@@ -253,4 +337,12 @@ main{
     .modal-btn {
         padding: 14px 24px;
     }
+    #menuToggle span {
+        left: 85vw;
+    }
+
+    #menuToggle input {
+        left: 85vw;
+    }
+
 }

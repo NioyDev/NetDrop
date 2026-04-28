@@ -10,7 +10,6 @@
     justify-content: center;
     align-items: center;
     gap: 60px;
-    background-color: #ffffff;
     padding: 10px 10px;
     flex-wrap: wrap;
 }
@@ -643,9 +642,6 @@
         width: 90%;
     }
 
-    .FormularioUP {
-        width: 90%;
-    }
 
     .UpData {
         width: 100%;
@@ -731,8 +727,7 @@
     .FormularioUP {
         width: 100%;
         padding: 15px;
-        height: auto;
-        min-height: 100vh;
+        height: 80vh;
     }
 
     .UpData {
