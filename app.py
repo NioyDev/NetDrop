@@ -185,11 +185,22 @@ def update():
 
         filename = secure_filename(f.filename)
 
-        if not allowed_file(filename):
+        # 1. Validar si la extensión está permitida
+        if allowed_file(filename):
+            # 2. Definir la ruta completa usando la carpeta de archivos
+            file_path = os.path.join(Files_Carpet, filename)
+            
+            # 3. Guardar el archivo físicamente
+            f.save(file_path)
+            
+            # Redirigir al inicio para ver el archivo cargado
+            return redirect('/')
+        else:
+            # Si el archivo NO es permitido, redirigir de vuelta con error
+            print(f"Extensión no permitida: {filename}")
             return redirect('/update')
 
     return redirect('/update')
-
 
 def abrir_navegador():
     hostname = sok.gethostname()
