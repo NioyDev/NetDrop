@@ -24,7 +24,6 @@ MAX_FILE_SIZE = 500 * 1024 * 1024  # 500MB
 app = Flask(__name__, template_folder=templates_dir(), static_folder=static_dir())
 app.config['SECRET_KEY'] = secrets.token_hex(32)
 app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
-SYNC_STATE = {"version": 0}
 
 # Función para verificar si el archivo tiene una extensión permitida
 def allowed_file(filename):
@@ -35,11 +34,6 @@ def allowed_file(filename):
 def index():
     File = Show_File.Show_File()
     return render_template('index.html', File=File)
-
-
-@app.route('/sync-state')
-def sync_state():
-    return jsonify(SYNC_STATE)
 
 
 @app.route('/file/<path:File>', methods=['GET'])
