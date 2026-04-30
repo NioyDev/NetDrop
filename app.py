@@ -26,12 +26,9 @@ app.config['SECRET_KEY'] = secrets.token_hex(32)
 app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
 SYNC_STATE = {"version": 0}
 
-
+# Función para verificar si el archivo tiene una extensión permitida
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
-Qr_Generator.Generar_QR()
 
 
 @app.route('/')
