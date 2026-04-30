@@ -9,7 +9,6 @@ from werkzeug.utils import secure_filename
 import secrets
 import subprocess
 import platform
-import sys
 
 
 # Crear carpetas persistentes para archivos subidos y QR

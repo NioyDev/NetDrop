@@ -221,52 +221,7 @@
       window.location.reload();
     }, 500);
   }
-
-  let lastSyncVersion = 0;
-  let socket = null;
-
-  function handleFilesUpdated(payload = {}) {
-    const version = Number(payload.version || 0);
-
-    if (version && version <= lastSyncVersion) {
-      return;
-    }
-
-    if (version) {
-      lastSyncVersion = version;
-    }
-
-    window.location.reload();
-  }
-
-  function checkSyncState() {
-    fetch('/sync-state', { cache: 'no-store' })
-      .then(response => response.json())
-      .then(data => {
-        const version = Number(data.version || 0);
-        if (version > lastSyncVersion) {
-          lastSyncVersion = version;
-          window.location.reload();
-        }
-      })
-      .catch(() => {});
-  }
-
-  if (typeof io === 'function') {
-    socket = io();
-
-    socket.on('connect', () => {
-      console.log('Socket conectado para actualizaciÃ³n en vivo');
-    });
-
-    socket.on('files_updated', handleFilesUpdated);
-
-    socket.on('connect_error', () => {
-      console.warn('Socket desconectado, usando sincronizaciÃ³n de respaldo');
-    });
-  }
-
-  setInterval(checkSyncState, 3000);
+  
 </script>
 
 {% endblock %}
