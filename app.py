@@ -198,7 +198,6 @@ def update():
         if not allowed_file(filename):
             return redirect('/update')
 
-
     return redirect('/update')
 
 
