@@ -9,6 +9,9 @@ from werkzeug.utils import secure_filename
 import secrets
 import subprocess
 import platform
+import urllib.request
+import sys
+
 
 
 # Crear carpetas persistentes para archivos subidos y QR
@@ -175,43 +178,30 @@ def qr():
 @app.route('/upload', methods=['POST'])
 def update():
     if request.method == 'POST':
-        print("📥 --- INTENTO DE SUBIDA DE ARCHIVO ---")
-        
-        # 1. Verificamos si Flask recibe la llave 'UPFile'
         if 'UPFile' not in request.files:
-            print("❌ ERROR: Flask no detectó 'UPFile' en request.files")
             return redirect('/update')
 
         f = request.files.get('UPFile')
-        print(f"📄 Archivo recibido en el backend: '{f.filename}'")
 
-        # 2. Verificamos que el archivo no esté vacío
+
         if not f or f.filename == '':
-            print("❌ ERROR: El archivo vino sin nombre o vacío")
             return redirect('/update')
 
         filename = secure_filename(f.filename)
 
-        # 3. Validar extensión
         if allowed_file(filename):
             file_path = os.path.join(Files_Carpet, filename)
-            print(f"✅ Extensión permitida. Intentando guardar físicamente en:\n👉 {file_path}")
             
-            # 4. El punto crítico: Intentamos guardar
             try:
                 f.save(file_path)
-                print("🎉 ¡ÉXITO! Archivo guardado correctamente en el sistema.")
                 return redirect('/')
             except Exception as e:
-                # Si esto salta, 99% seguro es que tu carpeta en Linux Mint no tiene permisos de escritura (chmod)
-                print(f"🔥 ERROR FATAL AL GUARDAR EL ARCHIVO: {e}")
-                print("💡 Tip: Verifica los permisos de la carpeta 'Files_Carpet'.")
                 return redirect('/update')
         else:
-            print(f"🚫 ERROR: La extensión del archivo '{filename}' no está en ALLOWED_EXTENSIONS")
             return redirect('/update')
 
     return redirect('/update')
+
 def abrir_navegador():
     hostname = sok.gethostname()
     try:
@@ -223,7 +213,23 @@ def abrir_navegador():
     webbrowser.open(urls)
 
 
+def esta_cerrado():
+    """Verifica si el servidor ya está respondiendo, ignorando el reloader de Flask."""
+    
+    if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+        return True
+
+    try:
+        urllib.request.urlopen("http://127.0.0.1:5000/", timeout=1)
+        return False 
+    except Exception: 
+        return True  
+    
 if __name__ == '__main__':
-    Qr_Generator.Generar_QR()
-    abrir_navegador()
-    app.run( debug=True, host="0.0.0.0", port=5000)
+    if esta_cerrado():
+        # Escenario 1: El servidor está apagado. Arrancamos todo desde cero.
+        Qr_Generator.Generar_QR()
+        abrir_navegador()
+        app.run(debug=True, host="0.0.0.0", port=5000)
+    else:
+        sys.exit()
