@@ -12,15 +12,13 @@ import platform
 import urllib.request
 import sys
 
-
-
 # Crear carpetas persistentes para archivos subidos y QR
 Files_Carpet, QR_Carpet = ensure_runtime_dirs()
 ALLOWED_EXTENSIONS = {
     'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4', 'mp3', 'wav', 'aac',
     'avi', 'mov', 'zip', 'rar', 'py', 'js', 'html', 'css', 'java', 'm4a', 'opus'
 }
-MAX_FILE_SIZE = 500 * 1024 * 1024  # 500MB
+MAX_FILE_SIZE = 1000 * 1024 * 1024  # 1GB
 
 
 # Crear Flask con rutas absolutas a recursos empaquetados
@@ -202,34 +200,45 @@ def update():
 
     return redirect('/update')
 
-def abrir_navegador():
-    hostname = sok.gethostname()
+def sacar_ip():
+    """Obtiene la IP real de la máquina en la red local (ej. 192.168.x.x)"""
     try:
-        ip = sok.gethostbyname(hostname)
+        # Creamos un socket temporal UDP
+        s = sok.socket(sok.AF_INET, sok.SOCK_DGRAM)
+        # Intentamos "conectar" a una IP externa (Google DNS). 
+        # Como es UDP, no envía datos ni necesita internet real, solo obliga al OS a decirnos nuestra IP.
+        s.connect(("8.8.8.8", 80))
+        ip = s.getsockname()[0]
+        s.close()
     except Exception:
-        ip = "127.0.0.1"
+        # Fallback seguro por si la PC no está conectada a ninguna red
+        ip = "127.0.0.1" 
+    return ip
 
+def abrir_navegador():
+    # ¡Reutilizamos sacar_ip para mantener el código limpio!
+    ip = sacar_ip()
     urls = "http://" + ip + ":5000/"
     webbrowser.open(urls)
 
-
 def esta_cerrado():
     """Verifica si el servidor ya está respondiendo, ignorando el reloader de Flask."""
-    
     if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
         return True
 
     try:
-        urllib.request.urlopen("http://127.0.0.1:5000/", timeout=1)
+        urllib.request.urlopen(f"http://{sacar_ip()}:5000/", timeout=1)
         return False 
     except Exception: 
         return True  
     
+
 if __name__ == '__main__':
     if esta_cerrado():
-        # Escenario 1: El servidor está apagado. Arrancamos todo desde cero.
-        Qr_Generator.Generar_QR()
-        abrir_navegador()
+        if not os.environ.get('WERKZEUG_RUN_MAIN'):
+            Qr_Generator.Generar_QR()
+            abrir_navegador()
         app.run(debug=True, host="0.0.0.0", port=5000)
     else:
+        print("El servidor ya está en ejecución. Cerrando instancia duplicada. busca en tu navegador http://" + sacar_ip() + ":5000/")
         sys.exit()
