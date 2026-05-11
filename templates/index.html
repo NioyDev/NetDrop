@@ -48,10 +48,9 @@
       <a href="#" class="delete-link" title="Eliminar archivo" onclick="openDeleteModal('{{ file_item.nombre }}'); return false;">
         <img src="{{ url_for('static', filename='iconos/trash.svg') }}" alt="Eliminar">
       </a>
-      <a href="#" class="download-link" onclick="downloadFile(event, '{{ file_item.nombre }}')">
+      <a href="/descarga/{{ file_item.nombre }}" class="download-link" title="Descargar archivo">
         <img src="{{ url_for('static', filename='iconos/descarga.svg') }}" alt="Descargar">
       </a>
-
     </div>
   </div>
   {% endfor %}
@@ -96,120 +95,9 @@
   function confirmDeleteFile() {
     const fileName = currentFileName;
     if (!fileName) return;
-
-    fetch("/eliminar/" + encodeURIComponent(fileName), {
-      method: 'POST'
-    })
-      .then(response => {
-        if (response.ok) {
-          closeDeleteModal();
-          window.location.reload();
-          return;
-        }
-
-        if (response.status === 404) {
-          closeDeleteModal();
-          showDownloadModal('Archivo no encontrado', 'El archivo ya no existe en el servidor.', 'single');
-          return;
-        }
-
-        if (response.status === 403) {
-          closeDeleteModal();
-          showDownloadModal('Acceso denegado', 'No se puede eliminar ese archivo.', 'single');
-          return;
-        }
-
-        closeDeleteModal();
-        showDownloadModal('Error', 'No se pudo eliminar el archivo. Código: ' + response.status, 'single');
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        closeDeleteModal();
-        showDownloadModal('Error de conexión', 'No se pudo comunicar con el servidor.', 'single');
-      });
-  }
-
-  function downloadFile(event, fileName) {
-    event.preventDefault();
-    currentFileName = fileName;
-
-    fetch("/descarga/" + encodeURIComponent(fileName))
-      .then(response => {
-        if (response.ok) {
-          return response.blob().then(blob => {
-            const url = window.URL.createObjectURL(blob);
-            const link = document.createElement('a');
-            link.href = url;
-            link.download = fileName;
-            document.body.appendChild(link);
-            link.click();
-            link.remove();
-            window.URL.revokeObjectURL(url);
-          });
-        } else if (response.status === 404) {
-          showDownloadModal('¡Woow! 🎉', 'El archivo no existe, pero tu intento fue épico.', 'single');
-        } else if (response.status === 403) {
-          showDownloadModal('⛔ Acceso Denegado', 'El archivo está bloqueado por el sistema. Haz clic en "Activar" para intentar desbloquear el acceso.', '403');
-        } else if (response.status === 400) {
-          showDownloadModal('❌ Archivo Inválido', 'Este no es un archivo válido. Por favor, intenta con otro archivo.', 'single');
-        } else if (response.status === 500) {
-          showDownloadModal('🔧 Error en el Servidor', 'Hubo un error al procesar tu descarga. Intenta más tarde.', 'single');
-        } else {
-          showDownloadModal('⚠️ Error', 'Ocurrió un error inesperado. Código: ' + response.status, 'single');
-        }
-      })
-      .catch(error => {
-        console.error('Error:', error);
-        showDownloadModal('🌐 Error de Conexión', 'No se pudo conectar con el servidor. Verifica tu conexión.', 'single');
-      });
-  }
-
-  function showDownloadModal(title, message, type = 'single') {
-    document.getElementById('modalTitle').textContent = title;
-    document.getElementById('modalMessage').textContent = message;
-
-    const primaryBtn = document.getElementById('primaryBtn');
-    const secondaryBtn = document.querySelector('.modal-btn-secondary');
-
-    if (type === '403') {
-      secondaryBtn.style.display = 'inline-flex';
-      primaryBtn.textContent = 'Activar';
-      primaryBtn.onclick = retryDownload;
-    } else {
-      secondaryBtn.style.display = 'none';
-      primaryBtn.textContent = 'Aceptar';
-      primaryBtn.onclick = closeDownloadModal;
-    }
-
-    document.getElementById('downloadModal').style.display = 'block';
-  }
-
-  function retryDownload() {
-    closeDownloadModal();
-
-    fetch("/unblock/" + encodeURIComponent(currentFileName), { method: 'POST' })
-      .then(response => response.json())
-      .catch(() => ({ success: false }))
-      .finally(() => {
-        setTimeout(() => {
-          downloadFile({ preventDefault: () => {} }, currentFileName);
-        }, 500);
-      });
-  }
-
-  function closeDownloadModal() {
-    document.getElementById('downloadModal').style.display = 'none';
-  }
-
-  window.onclick = function(event) {
-    const modal = document.getElementById('downloadModal');
-    const deleteModal = document.getElementById('deleteModal');
-    if (event.target == modal) {
-      modal.style.display = 'none';
-    }
-    if (event.target == deleteModal) {
-      deleteModal.style.display = 'none';
-    }
+    
+    // Redirigir a la ruta de Python para eliminar
+    window.location.href = "/eliminar/" + encodeURIComponent(fileName);
   }
 
   function UPIniciarRecarga(btn) {
@@ -221,7 +109,13 @@
       window.location.reload();
     }, 500);
   }
-  
+
+  window.onclick = function(event) {
+    const deleteModal = document.getElementById('deleteModal');
+    if (event.target == deleteModal) {
+      deleteModal.style.display = 'none';
+    }
+  }
 </script>
 
 {% endblock %}

@@ -1,3 +1,9 @@
+/* ================================
+   IMPORTAR VARIABLES GLOBALES
+   ================================ */
+@import url('variables.css');
+@import url('layout-variables.css');
+
 :root {
     --file-bg: #f0f0f0;
     --file-surface: #ffffff;
@@ -42,7 +48,9 @@
     align-items: center;
     overflow: hidden;
     border-radius: 10px;
-    background-color: #312f2c;
+    background-color: var(--color-secondary);
+    border: 1px solid var(--color-gray-border-light);
+    box-shadow: var(--shadow-soft);
 }
 
 .File_Detalles{
@@ -63,7 +71,7 @@
     white-space: nowrap; 
     overflow: hidden; 
     text-overflow: ellipsis;
-    color: #fcfcfc;
+    color: var(--color-primary);
 }
 
 
@@ -73,13 +81,13 @@
     margin: 15px;
     overflow: hidden;
     border-radius: 5px;
-    border: #f0ede5 1px solid;
-    background-color: #ffffff;
+    border: var(--color-gray-border-lightest) 1px solid;
+    background-color: var(--color-primary);
 }
 
 .File_Detalles .Tipo, .Fecha{
     font-size: 14px;
-    color: #ffffff;
+    color: var(--color-text-tertiary);
 }
 
 .File_Contenido img{
@@ -112,7 +120,7 @@
 }
 
 .Acciones a{
-    border: #666666 1px solid;
+    border: var(--color-gray-border-light) 1px solid;
     margin: 5px 0 5px 0px;
     border-radius: 5px;
     width: 100px;
@@ -126,7 +134,6 @@
     width: 40%;
     height: 40%;
     object-fit: contain;
-    filter: invert(1);
 }
 
 .File_Contenido .zip{

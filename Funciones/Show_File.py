@@ -1,10 +1,9 @@
 import os
-from Funciones.paths import upload_dir
 from datetime import datetime
 
 
 def Show_File():
-    Ruta = upload_dir()
+    Ruta = "static/Files"
     archivos = []
 
     if os.path.exists(Ruta):
@@ -23,7 +22,7 @@ def Show_File():
 
                 archivos.append({
                     "nombre": nombre_archivo,
-                    "ruta": f"/file/{nombre_archivo}",
+                    "ruta": f"static/Files/{nombre_archivo}",
                     "tipo": nombre_archivo.split(".")[-1].lower() if '.' in nombre_archivo else '',
                     "fecha": fecha_legible
                 })

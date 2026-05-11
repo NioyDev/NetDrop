@@ -1,0 +1,50 @@
+/* ================================
+   VARIABLES - ESPACIOS, TRANSICIONES Y TIPOGRAFÍA
+   ================================ */
+:root {
+    /* TRANSICIONES */
+    --transition-base: 0.3s ease;
+    --transition-quick: 0.2s ease;
+    --transition-image: 0.5s ease;
+    --transition-cubic: 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+    
+    /* BORDER RADIUS */
+    --border-radius-sm: 5px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 10px;
+    --border-radius-xl: 15px;
+    --border-radius-full: 999px;
+    
+    /* ESPACIOS */
+    --spacing-sm: 5px;
+    --spacing-md: 10px;
+    --spacing-lg: 15px;
+    --spacing-xl: 20px;
+    --spacing-2xl: 30px;
+    --spacing-3xl: 40px;
+    
+    /* SOMBRAS */
+    --shadow-soft: 0 2px 5px var(--color-shadow-soft);
+    --shadow-strong: 0 8px 24px var(--color-shadow-strong);
+    --shadow-modal: 0 12px 40px var(--color-shadow);
+    
+    /* TIPOGRAFÍA */
+    --font-family: 'Inter', sans-serif;
+    --font-size-sm: 13px;
+    --font-size-base: 15px;
+    --font-size-md: 16px;
+    --font-size-lg: 18px;
+    --font-size-xl: 19px;
+    --font-size-2xl: 20px;
+    --font-size-3xl: 22px;
+    --font-size-4xl: 24px;
+    --font-size-5xl: 28px;
+    
+    /* DIMENSIONES COMUNES */
+    --button-width: 135px;
+    --button-height: 50px;
+    --icon-size-sm: 20px;
+    --icon-size-md: 24px;
+    --icon-size-lg: 34px;
+    --icon-size-xl: 40px;
+}

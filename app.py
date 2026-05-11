@@ -3,185 +3,46 @@ from Funciones import Qr_Generator
 from Funciones import Show_File as Show_File
 from Funciones.paths import ensure_runtime_dirs, qr_path, static_dir, templates_dir
 import os
-import webbrowser
-import socket as sok
 from werkzeug.utils import secure_filename
 import secrets
-import subprocess
-import platform
 import urllib.request
 import sys
 
-# Crear carpetas persistentes para archivos subidos y QR
-Files_Carpet, QR_Carpet = ensure_runtime_dirs()
-ALLOWED_EXTENSIONS = {
-    'txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4', 'mp3', 'wav', 'aac',
-    'avi', 'mov', 'zip', 'rar', 'py', 'js', 'html', 'css', 'java', 'm4a', 'opus'
-}
-MAX_FILE_SIZE = 1000 * 1024 * 1024  # 1GB
+# Funciones propias
+from Funciones.ip import sacar_ip
+from Funciones.configuracion import ALLOWED_EXTENSIONS, MAX_FILE_SIZE
+from Funciones.abrirNavegador import abrir_navegador
+from Funciones.close import esta_cerrado
 
-
-# Crear Flask con rutas absolutas a recursos empaquetados
 app = Flask(__name__, template_folder=templates_dir(), static_folder=static_dir())
 app.config['SECRET_KEY'] = secrets.token_hex(32)
 app.config['MAX_CONTENT_LENGTH'] = MAX_FILE_SIZE
 
-# Función para verificar si el archivo tiene una extensión permitida
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+# Carpeta de destino en static/File
+Files_Carpet = os.path.join(app.static_folder, 'Files')
+if not os.path.exists(Files_Carpet):
+    os.makedirs(Files_Carpet)
 
+def allowed_file(filename):
+    """Permite archivos con extensiones válidas o archivos sin extensión (opcional)."""
+    if '.' not in filename:
+        return True # Permitimos archivos sin extensión por si son binarios de Linux
+    return filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+# --- RUTAS ---
 
 @app.route('/')
 def index():
     File = Show_File.Show_File()
     return render_template('index.html', File=File)
 
-
-@app.route('/file/<path:File>', methods=['GET'])
-def uploaded_file(File=''):
-    File = secure_filename(File)
-    Url_File = os.path.join(Files_Carpet, File)
-    Url_File = os.path.abspath(Url_File)
-    Files_Carpet_Abs = os.path.abspath(Files_Carpet)
-
-    if not Url_File.startswith(Files_Carpet_Abs):
-        return "Acceso denegado", 403
-
-    if not os.path.exists(Url_File):
-        return "Archivo no encontrado", 404
-
-    if not os.path.isfile(Url_File):
-        return "No es un archivo válido", 400
-
-    return send_file(Url_File)
-
-
-@app.route('/descarga/<string:File>', methods=['GET'])
-def Descarga(File=''):
-    if request.method == 'GET':
-        try:
-            File = secure_filename(File)
-            Url_File = os.path.join(Files_Carpet, File)
-
-            Url_File = os.path.abspath(Url_File)
-            Files_Carpet_Abs = os.path.abspath(Files_Carpet)
-
-            if not Url_File.startswith(Files_Carpet_Abs):
-                return "Acceso denegado", 403
-
-            if not os.path.exists(Url_File):
-                return "Archivo no encontrado", 404
-
-            if not os.path.isfile(Url_File):
-                return "No es un archivo válido", 400
-
-            return send_file(Url_File, as_attachment=True, download_name=File)
-
-        except Exception as e:
-            print(f"Error al descargar archivo: {e}")
-            return "Error al procesar la descarga", 500
-    else:
-        return redirect('/')
-
-
-@app.route('/eliminar/<path:File>', methods=['POST'])
-def eliminar_file(File=''):
-    try:
-        File = secure_filename(File)
-        Url_File = os.path.join(Files_Carpet, File)
-
-        Url_File = os.path.abspath(Url_File)
-        Files_Carpet_Abs = os.path.abspath(Files_Carpet)
-
-        if not Url_File.startswith(Files_Carpet_Abs):
-            return jsonify({'success': False, 'message': 'Acceso denegado'}), 403
-
-        if not os.path.exists(Url_File):
-            return jsonify({'success': False, 'message': 'Archivo no encontrado'}), 404
-
-        if not os.path.isfile(Url_File):
-            return jsonify({'success': False, 'message': 'No es un archivo válido'}), 400
-
-        os.remove(Url_File)
-        return jsonify({'success': True, 'message': 'Archivo eliminado correctamente'}), 200
-
-    except Exception as e:
-        print(f"Error al eliminar archivo: {e}")
-        return jsonify({'success': False, 'message': 'Error al eliminar el archivo'}), 500
-
-
-@app.route('/unblock/<string:File>', methods=['POST'])
-def unblock_file(File=''):
-    """Desbloquea un archivo en Windows usando Unblock-File."""
-    try:
-        File = secure_filename(File)
-        Url_File = os.path.join(Files_Carpet, File)
-
-        Url_File = os.path.abspath(Url_File)
-        Files_Carpet_Abs = os.path.abspath(Files_Carpet)
-
-        if not Url_File.startswith(Files_Carpet_Abs):
-            return jsonify({'success': False, 'message': 'Acceso denegado'}), 403
-
-        if not os.path.exists(Url_File):
-            return jsonify({'success': False, 'message': 'Archivo no encontrado'}), 404
-
-        if platform.system() == 'Windows':
-            try:
-                command = f'Unblock-File -Path "{Url_File}"'
-                subprocess.run(
-                    ['powershell', '-NoProfile', '-Command', command],
-                    check=True,
-                    capture_output=True,
-                    timeout=10
-                )
-                print(f"Archivo desbloqueado: {Url_File}")
-                return jsonify({'success': True, 'message': 'Archivo desbloqueado correctamente'}), 200
-            except subprocess.TimeoutExpired:
-                return jsonify({'success': False, 'message': 'Timeout al desbloquear'}), 500
-            except subprocess.CalledProcessError as e:
-                print(f"Error desbloqueo: {e.stderr.decode() if e.stderr else str(e)}")
-                return jsonify({'success': False, 'message': 'No se pudo desbloquear el archivo'}), 500
-        else:
-            return jsonify({'success': False, 'message': 'Esta función solo funciona en Windows'}), 400
-
-    except Exception as e:
-        print(f"Error en desbloqueo: {e}")
-        return jsonify({'success': False, 'message': f'Error: {str(e)}'}), 500
-
-
-@app.route('/update')
-def UpDate():
-    return render_template('Up_Data.html')
-
-
-@app.route('/qrgenerator')
-def QR_Generador():
-    return render_template('Qr_Generator.html')
-
-
-@app.route('/qr-image')
-def qr_image():
-    if not os.path.exists(qr_path()):
-        Qr_Generator.Generar_QR()
-    return send_file(qr_path())
-
-
-@app.route('/qr')
-def qr():
-    Qr_Generator.Generar_QR()
-    return redirect('/qrgenerator')
-
-
 @app.route('/upload', methods=['POST'])
-def update():
+def upload():
     if request.method == 'POST':
         if 'UPFile' not in request.files:
             return redirect('/update')
 
         f = request.files.get('UPFile')
-
-
         if not f or f.filename == '':
             return redirect('/update')
 
@@ -189,56 +50,80 @@ def update():
 
         if allowed_file(filename):
             file_path = os.path.join(Files_Carpet, filename)
-            
             try:
                 f.save(file_path)
                 return redirect('/')
             except Exception as e:
                 return redirect('/update')
         else:
+            print(f"🚫 Extensión no permitida: {filename}")
             return redirect('/update')
+    return redirect('/')
 
-    return redirect('/update')
-
-def sacar_ip():
-    """Obtiene la IP real de la máquina en la red local (ej. 192.168.x.x)"""
-    try:
-        # Creamos un socket temporal UDP
-        s = sok.socket(sok.AF_INET, sok.SOCK_DGRAM)
-        # Intentamos "conectar" a una IP externa (Google DNS). 
-        # Como es UDP, no envía datos ni necesita internet real, solo obliga al OS a decirnos nuestra IP.
-        s.connect(("8.8.8.8", 80))
-        ip = s.getsockname()[0]
-        s.close()
-    except Exception:
-        # Fallback seguro por si la PC no está conectada a ninguna red
-        ip = "127.0.0.1" 
-    return ip
-
-def abrir_navegador():
-    # ¡Reutilizamos sacar_ip para mantener el código limpio!
-    ip = sacar_ip()
-    urls = "http://" + ip + ":5000/"
-    webbrowser.open(urls)
-
-def esta_cerrado():
-    """Verifica si el servidor ya está respondiendo, ignorando el reloader de Flask."""
-    if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
-        return True
-
-    try:
-        urllib.request.urlopen(f"http://{sacar_ip()}:5000/", timeout=1)
-        return False 
-    except Exception: 
-        return True  
+@app.route('/descarga/<filename>', methods=['GET'])
+def descarga(filename):
+    filename = secure_filename(filename)
+    file_path = os.path.join(Files_Carpet, filename)
     
+    if not os.path.exists(file_path):
+        return redirect('/')
+    
+    try:
+        return send_file(file_path, as_attachment=True, download_name=filename)
+    except Exception as e:
+        print(f"Error al descargar {filename}: {e}")
+        return redirect('/')
+
+@app.route('/eliminar/<filename>', methods=['POST', 'GET'])
+def eliminar(filename):
+    filename = secure_filename(filename)
+    file_path = os.path.join(Files_Carpet, filename)
+    
+    if not os.path.exists(file_path):
+        return redirect('/')
+    
+    try:
+        os.remove(file_path)
+        print(f"✓ Archivo eliminado: {filename}")
+    except Exception as e:
+        print(f"Error al eliminar {filename}: {e}")
+    
+    return redirect('/')
+
+@app.route('/update')
+def update():
+    return render_template('Up_Data.html')
+
+@app.route('/qrgenerator')
+def QR_Generador_Vista():
+    return render_template('Qr_Generator.html')
+
+@app.route('/qr-image')
+def qr_image():
+    if not os.path.exists(qr_path()):
+        Qr_Generator.Generar_QR()
+    return send_file(qr_path())
+
+@app.route('/qr')
+def qr():
+    Qr_Generator.Generar_QR()
+    return redirect('/qrgenerator')
 
 if __name__ == '__main__':
     if esta_cerrado():
+        # Escenario 1: El servidor está apagado. Arrancamos.
         if not os.environ.get('WERKZEUG_RUN_MAIN'):
+            print(f"🚀 Iniciando NetDrop en: http://{sacar_ip()}:5000")
             Qr_Generator.Generar_QR()
             abrir_navegador()
+        
         app.run(debug=True, host="0.0.0.0", port=5000)
     else:
-        print("El servidor ya está en ejecución. Cerrando instancia duplicada. busca en tu navegador http://" + sacar_ip() + ":5000/")
-        sys.exit()
+        # Escenario 2: Ya está corriendo. Solo avisamos en consola y abrimos pestaña.
+        print("\n" + "="*40)
+        print("⚠️  NETDROP YA ESTÁ EN EJECUCIÓN")
+        print(f"🔗 Abriendo pestaña en: http://{sacar_ip()}:5000")
+        print("="*40 + "\n")
+        
+        abrir_navegador() # Te manda al navegador para que no pierdas el hilo
+        sys.exit() # Cerramos este proceso duplicado

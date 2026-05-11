@@ -1,5 +1,11 @@
 
 /* ================================
+   IMPORTAR VARIABLES GLOBALES
+   ================================ */
+@import url('variables.css');
+@import url('layout-variables.css');
+
+/* ================================
    SECCIÓN: GENERADOR QR
    ================================ */
 
@@ -44,14 +50,14 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    color: #000000;
+    color: var(--color-text);
 }
 
 .Text h3 {
     margin: 0;
     font-size: 24px;
     font-weight: 600;
-    color: #000000;
+    color: var(--color-text);
 }
 
 .Instructions-List {
@@ -66,13 +72,13 @@
 
 .Instructions-List li {
     font-size: 15px;
-    color: #555;
+    color: var(--color-text-light);
     line-height: 1.6;
 }
 
 .Instructions-List li:before {
     content: "•";
-    color: #000000;
+    color: var(--color-text);
     font-weight: bold;
     margin-right: 10px;
 }
@@ -81,13 +87,13 @@
     padding: 14px 24px;
     font-size: 15px;
     font-weight: 600;
-    background-color: #000000;
-    color: #ffffff;
+    background-color: var(--color-secondary);
+    color: var(--color-text);
     border: none;
-    border-radius: 8px;
+    border-radius: var(--border-radius-sm);
     cursor: pointer;
     text-decoration: none;
-    transition: all 0.3s ease;
+    transition: all var(--transition-base);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -95,8 +101,9 @@
 }
 
 .regenerate-btn:hover {
-    background-color: #333333;
+    background-color: var(--color-gray);
     transform: translateY(-2px);
+    color: var(--color-secondary);
 }
 
 .regenerate-btn:active {
@@ -190,16 +197,16 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000000;
-    color: #ffffff;
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
     font-size: 20px;
     font-weight: 500;
-    border-radius: 10px;
+    border-radius: var(--border-radius-md);
     cursor: pointer;
     padding: 30px;
     text-decoration: none;
     margin: 0 auto;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color var(--transition-base), transform var(--transition-quick);
 }
 
 /* ================================
@@ -232,14 +239,14 @@
 
 .empty-state h2 {
     font-size: 28px;
-    color: #000000;
+    color: var(--color-text);
     margin-bottom: 10px;
     font-weight: 600;
 }
 
 .empty-state p {
     font-size: 16px;
-    color: #666666;
+    color: var(--color-gray);
     margin: 0;
 }
 
@@ -252,17 +259,17 @@
     align-items: center;
     flex-direction: column;
     margin-top: 5px;
-    border-radius: 10px;
+    border-radius: var(--border-radius-md);
     padding: 10px;
-    background-color: #ffffff;
-    color: #000000;
+    background-color: var(--color-secondary);
+    color: var(--color-text);
     font-size: 20px;
     font-weight: 500;
     cursor: pointer;
     text-decoration: none;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    transition: box-shadow var(--transition-base), transform var(--transition-base);
     gap: 10px;
-    border: 1px solid #000000;
+    border: 1px solid var(--color-primary);
 }
 
 .delete-file-btn {
@@ -275,13 +282,14 @@
     justify-content: center;
     align-items: center;
     border: none;
-    border-radius: 999px;
-    color: #ffffff;
+    border-radius: var(--border-radius-full);
+    color: var(--color-secondary);
     font-size: 24px;
     line-height: 1;
     cursor: pointer;
     z-index: 3;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 10px var(--color-shadow);
+    transition: transform var(--transition-quick);
 }
 
 .delete-file-btn:hover {
@@ -303,7 +311,7 @@
     position: fixed;
     inset: 0;
     z-index: 10001;
-    background-color: rgba(0, 0, 0, 0.55);
+    background-color: var(--color-overlay);
     justify-content: center;
     align-items: center;
     padding: 20px;
@@ -312,11 +320,11 @@
 .delete-modal-content {
     width: 100%;
     max-width: 420px;
-    background: #ffffff;
+    background: var(--color-secondary);
     border-radius: 16px;
     padding: 28px;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 12px 40px var(--color-shadow);
+    border: 1px solid var(--color-border-light);
     animation: deleteModalIn 0.2s ease-out;
 }
 
@@ -334,14 +342,14 @@
 .delete-modal-content h2 {
     margin: 0 0 10px 0;
     font-size: 22px;
-    color: #000000;
+    color: var(--color-text);
 }
 
 .delete-modal-content p {
     margin: 0 0 22px 0;
     font-size: 15px;
     line-height: 1.6;
-    color: #444444;
+    color: var(--color-text-muted);
 }
 
 .delete-modal-actions {
@@ -354,11 +362,11 @@
     min-width: 120px;
     padding: 12px 18px;
     border: none;
-    border-radius: 10px;
+    border-radius: var(--border-radius-md);
     cursor: pointer;
     font-size: 15px;
     font-weight: 600;
-    transition: transform 0.2s ease, background-color 0.2s ease, opacity 0.2s ease;
+    transition: transform var(--transition-quick), background-color var(--transition-quick);
 }
 
 .delete-modal-btn:hover {
@@ -366,21 +374,21 @@
 }
 
 .delete-modal-no {
-    background: #e6e6e6;
-    color: #111111;
+    background: var(--color-gray-light);
+    color: var(--color-text);
 }
 
 .delete-modal-no:hover {
-    background: #d8d8d8;
+    background: var(--color-gray-lighter);
 }
 
 .delete-modal-yes {
-    background: #c62828;
-    color: #ffffff;
+    background: var(--color-danger);
+    color: var(--color-secondary);
 }
 
 .delete-modal-yes:hover {
-    background: #a61f1f;
+    background: var(--color-danger-dark);
 }
 
 @media (max-width: 480px) {
@@ -407,18 +415,11 @@
     align-items: center;
 }
 
-
-.File audio {
-    width: 100%;
-    height: auto;
-    max-width: 100%;
-}
-
 .File video {
     width: 100%;
     height: 100%;
     display: block;
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-base);
 }
 
 .Icono_Documento {
@@ -427,49 +428,36 @@
     object-fit: contain;
 }
 
-.File .Texto {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    width: 90%;
-    max-width: 90%;
-    min-width: 25%;
-    font-size: medium;
-    font-family: Inter;
-    margin-left: 20px;
-    color: #000000;
-}
-
 .File a {
     width: 100%;
     padding: 12px 15px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #000000;
-    color: #ffffff;
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
     font-size: 16px;
     font-weight: 500;
     border-radius: 0px;
     cursor: pointer;
     text-decoration: none;
-    border: 1px solid #000000;
+    border: 1px solid var(--color-primary);
     gap: 10px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color var(--transition-base), transform var(--transition-quick);
     box-sizing: border-box;
 }
-
 
 .File h1 {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     font-size: 19px;
-    color: #000000;
-    transition: color 0.3s ease;
+    color: var(--color-text);
+    transition: color var(--transition-base);
 }
 
 .File:hover h1 {
-    color: #666666;
+    color: var(--color-gray);
 }
 
 /* ================================
@@ -483,46 +471,46 @@
     align-items: center;
     padding: 40px 20px;
     width: 60%;
-    height: 100vh;
+    height: 80vh;
 }
 
 /* Caja del Formulario */
 .UpData {
-    background-color: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    background-color: var(--color-secondary);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     padding: 30px;
     width: 100%;
     max-width: 900px;
     display: flex;
     flex-direction: column;
     gap: 20px;
-    transition: transform 0.3s ease;
+    transition: transform var(--transition-base);
 }
 
 /* El "Botón" de selección de archivo (Label) */
 .Custom-Label {
     width: 100%;
     min-height: 150px;
-    border: 2px dashed #d3d3d3;
-    border-radius: 10px;
+    border: 2px dashed var(--color-border);
+    border-radius: var(--border-radius-md);
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all var(--transition-base);
     text-align: center;
     padding: 20px;
 }
 
 .Custom-Label:hover {
-    border-color: #000000;
-    background-color: #f9f9f9;
+    border-color: var(--color-primary);
+    background-color: var(--color-gray-lightest);
 }
 
 .Custom-Label span {
     font-size: 18px;
-    color: #666;
+    color: var(--color-gray);
     font-weight: 500;
 }
 
@@ -540,20 +528,20 @@
 
 /* Botón de envío (SUBIR) */
 .Des {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: var(--color-primary);
+    color: var(--color-secondary);
     border: none;
     padding: 15px;
     font-size: 16px;
     font-weight: bold;
-    border-radius: 8px;
+    border-radius: var(--border-radius-sm);
     cursor: pointer;
     letter-spacing: 1px;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: background-color var(--transition-base), transform var(--transition-quick);
 }
 
 .Des:hover {
-    background-color: #333333;
+    background-color: var(--color-gray);
     transform: translateY(-2px);
 }
 
@@ -571,8 +559,8 @@
 /* Estilo para la imagen o video de preview */
 .UPPreviewMedia {
     max-width: 100%;
-    max-height: 180px; /* Ajusta según el alto de tu .UpData */
-    border-radius: 8px;
+    max-height: 180px;
+    border-radius: var(--border-radius-sm);
     object-fit: contain;
     animation: fadeIn 0.4s ease-in-out;
 }
@@ -580,7 +568,7 @@
 /* Icono inicial */
 .UPIcon {
     font-size: 40px;
-    color: #ccc;
+    color: var(--color-gray-light);
 }
 
 /* Animación de entrada */
@@ -589,24 +577,17 @@
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* El input real sigue oculto pero accesible */
-.UpInput {
-    display: none;
-}
-
 /* ================================
    SECCIÓN: RESPONSIVE
    ================================ */
 
 /* Tablets y pantallas medianas (768px y menores) */
 @media (max-width: 768px) {
-    /* Generador QR Responsive */
     .Generator-QR {
         gap: 30px;
         flex-direction: column;
         min-height: auto;
         padding: 20px;
-        margin-top: 50px;
     }
 
     .QR-Image {
@@ -637,11 +618,9 @@
         min-height: 44px;
     }
 
-    /* Otros elementos */
-    .File{
+    .File {
         width: 90%;
     }
-
 
     .UpData {
         width: 100%;
@@ -655,7 +634,6 @@
         min-height: 150px;
     }
 
-    /* Empty State Responsive */
     .empty-state {
         padding: 40px 20px;
         margin-top: 30px;
@@ -672,7 +650,12 @@
 
 /* Teléfonos y pantallas pequeñas (480px y menores) */
 @media (max-width: 480px) {
-    /* Generador QR */
+    .FormularioUP {
+        width: 100%;
+        padding: 15px;
+        height: 80vh;
+    }
+
     .Generator-QR {
         gap: 25px;
         padding: 15px;
@@ -708,7 +691,6 @@
         padding: 12px;
     }
 
-    /* Archivos */
     .File {
         width: 95%;
         height: 400px;
@@ -719,15 +701,7 @@
     }
 
     .File a {
-        width: 100%;
         padding: 12px 15px;
-    }
-
-    /* Formulario de subida */
-    .FormularioUP {
-        width: 100%;
-        padding: 15px;
-        height: 80vh;
     }
 
     .UpData {
@@ -755,7 +729,6 @@
         font-size: 14px;
     }
 
-    /* Empty State Responsive Mobile */
     .empty-state {
         padding: 40px 15px;
         margin-top: 30px;
@@ -767,5 +740,17 @@
 
     .empty-state p {
         font-size: 13px;
+    }
+
+    .delete-modal-content {
+        padding: 22px;
+    }
+
+    .delete-modal-actions {
+        flex-direction: column-reverse;
+    }
+
+    .delete-modal-btn {
+        width: 100%;
     }
 }
