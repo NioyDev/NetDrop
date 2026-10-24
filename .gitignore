@@ -43,3 +43,11 @@ dist/
 !netdrop-installer/DEBIAN/control
 distribucion/*.deb
 *.zip
+
+
+app.spec
+creadorEjecutable.sh
+iniciar_netdrop.bat
+NetDrop-Linux-x64.spec
+NetDrop-Linux-x64.zip
+NetDrop-Windows-x64.zip
