@@ -1,6 +1,8 @@
-; Script de Inno Setup para NetDrop
+﻿; Script de Inno Setup para NetDrop
 #define MyAppName "NetDrop"
-#define MyAppVersion "2.1.0"
+#ifndef MyAppVersion
+  #define MyAppVersion "2.1.2"
+#endif
 #define MyAppPublisher "NioyDev"
 #define MyAppURL "https://github.com/NioyDev/NetDrop"
 #define MyAppExeName "NetDrop.exe"
@@ -15,17 +17,20 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
-LicenseFile=..\README.md
 OutputDir=..\dist
-OutputBaseFilename=NetDrop-Setup-v{#MyAppVersion}
+OutputBaseFilename=NetDrop-Setup
 SetupIconFile=..\static\Logo\Logo.ico
 Compression=lzma2/ultra64
 SolidCompression=yes
 WizardStyle=modern
+ArchitecturesAllowed=x64compatible
+ArchitecturesInstallIn64BitMode=x64compatible
+PrivilegesRequiredOverridesAllowed=dialog
+UninstallDisplayIcon={app}\{#MyAppExeName}
+CloseApplications=yes
 
 [Languages]
 Name: "spanish"; MessagesFile: "compiler:Languages\Spanish.isl"
-Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"; Flags: unchecked
@@ -34,8 +39,8 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 Source: "..\dist\NetDrop-Windows\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
-Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\static\Logo\Logo.ico"
-Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; IconFilename: "{app}\static\Logo\Logo.ico"; Tasks: desktopicon
+Name: "{autoprograms}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"
+Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: desktopicon
 
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent

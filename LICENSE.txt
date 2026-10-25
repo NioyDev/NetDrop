@@ -1,0 +1,24 @@
+﻿LICENCIA DE USO LIBRE DE NETDROP
+Copyright (c) 2026 Nexthezia Studios - NioyDev. Todos los derechos reservados salvo los concedidos aquí.
+
+1. CONCESIÓN DE USO
+Se concede permiso, sin costo, a cualquier persona que obtenga una copia de NetDrop (el "Software") para usarlo, copiarlo y distribuirlo gratuitamente, tanto para fines personales como educativos y comerciales internos (por ejemplo, usarlo en una oficina o empresa para compartir archivos).
+
+2. PROHIBICIÓN DE VENTA
+Queda estrictamente prohibido vender, revender, alquilar, sublicenciar o cobrar de cualquier forma por el Software, por copias de él o por versiones modificadas, ya sea de forma independiente o incluido en otro producto o servicio de pago. Tampoco se permite cobrar por su descarga, instalación o distribución.
+
+3. REDISTRIBUCIÓN
+Puede redistribuir el Software de forma gratuita siempre que conserve intactos el aviso de derechos de autor y esta licencia, y no presente el Software como creación propia.
+
+4. MODIFICACIONES
+Puede modificar el Software para uso propio. Las versiones modificadas que se distribuyan deben ser gratuitas, indicar claramente que han sido modificadas y mantener esta misma licencia.
+
+5. SIN GARANTÍA
+EL SOFTWARE SE ENTREGA "TAL CUAL", SIN GARANTÍA DE NINGÚN TIPO, EXPRESA O IMPLÍCITA, INCLUIDAS, ENTRE OTRAS, LAS DE COMERCIALIZACIÓN, IDONEIDAD PARA UN FIN PARTICULAR Y NO INFRACCIÓN. LOS AUTORES NO SERÁN RESPONSABLES POR NINGUNA RECLAMACIÓN, DAÑO O PÉRDIDA DE DATOS DERIVADOS DEL USO DEL SOFTWARE.
+
+6. TERMINACIÓN
+El incumplimiento de cualquiera de estas condiciones, en especial la prohibición de venta, termina automáticamente los derechos concedidos en esta licencia.
+
+Al instalar o usar NetDrop, usted acepta estos términos.
+
+Contacto: https://github.com/NioyDev/NetDrop

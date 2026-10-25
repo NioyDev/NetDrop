@@ -1,3 +1,15 @@
+import os, sys
+# Sin consola o con cp1252: evitar que print() con emojis tumbe la app
+for _n in ("stdout", "stderr"):
+    _s = getattr(sys, _n)
+    if _s is None:
+        setattr(sys, _n, open(os.devnull, "w", encoding="utf-8"))
+    else:
+        try:
+            _s.reconfigure(encoding="utf-8", errors="replace")
+        except Exception:
+            pass
+
 from flask import Flask, jsonify, redirect, render_template, request, send_file, send_from_directory
 from Funciones import Qr_Generator
 from Funciones import Show_File as Show_File
